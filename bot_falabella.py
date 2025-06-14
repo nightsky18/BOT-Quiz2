@@ -62,18 +62,18 @@ time.sleep(6)
 productos = []
 
 try:
-    script = bot.find_element(By.XPATH, "/html/body/script[@id='__NEXT_DATA__']")
-    contenido = script.get_attribute("innerHTML")
-    data = json.loads(contenido)
+    script = bot.find_element(By.XPATH, "/html/body/script[@id='__NEXT_DATA__']") # Localizar el script con los datos
+    contenido = script.get_attribute("innerHTML") 
+    data = json.loads(contenido) 
 
-    productos_data = data["props"]["pageProps"]["results"]
+    productos_data = data["props"]["pageProps"]["results"] # Extraer los productos de la estructura JSON
 
     for prod in productos_data:
         nombre = prod.get("displayName", "Sin nombre")
         url = prod.get("url", "#")
-        enlace = url if url.startswith("http") else f"https://www.falabella.com.co{url}"
+        enlace = url if url.startswith("http") else f"https://www.falabella.com.co{url}" 
         
-        # Buscar el primer precio (puede haber varios en la lista)
+        # Buscar el primer precio 
         try:
             precio = prod["prices"][0]["price"][0]
         except:
@@ -95,15 +95,18 @@ with open("auriculares_falabella.csv", "w", newline="", encoding="utf-8") as arc
     columnas = ["nombre", "precio", "enlace"]
     writer = csv.DictWriter(archivo_csv, fieldnames=columnas)
     writer.writeheader()
+    # Escribir los datos de los productos
     for producto in productos:
         writer.writerow(producto)
+#aqui termina la parte de guardar en csv
+
 
 # Guardar en JSON solo los precios
 precios = {"precios": [producto["precio"] for producto in productos]}
 
 with open("precios_auriculares.json", "w", encoding="utf-8") as archivo_json:
-    json.dump(precios, archivo_json, indent=4, ensure_ascii=False)
-
+    json.dump(precios, archivo_json, indent=4, ensure_ascii=False) # conserva caracteres especiales
+# aqui termina la parte de guardar en json
 
 try:
     # Hacer scroll hasta el final de la página
@@ -113,18 +116,19 @@ try:
     instagram_icon = bot.find_element(By.XPATH, "/html/body/div[1]/footer/section[2]/div/div[1]/ul/li[2]/a")
     instagram_icon.click()
     print("Se hizo clic en el ícono de Instagram.")
-    time.sleep(5)  # Esperar que cargue la página
+    time.sleep(8)  # Esperar que cargue la página
 
     # Tomar una captura de pantalla
     bot.save_screenshot("screenshot_instagram.png")
     print("Captura de pantalla guardada como screenshot_instagram.png.")
 
 except Exception as e:
-    print("Error al intentar acceder al ícono de Instagram o tomar el screenshot:", str(e))
+    print("Error al tomar el screenshot:", str(e))
 
 
 
-
-bot.quit()  # Cerrar el navegador
+finally:
+    # Cerrar el navegador
+    bot.quit()
 
 
