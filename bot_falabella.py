@@ -105,6 +105,22 @@ with open("precios_auriculares.json", "w", encoding="utf-8") as archivo_json:
     json.dump(precios, archivo_json, indent=4, ensure_ascii=False)
 
 
+try:
+    # Hacer scroll hasta el final de la página
+    bot.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(3)
+
+    instagram_icon = bot.find_element(By.XPATH, "/html/body/div[1]/footer/section[2]/div/div[1]/ul/li[2]/a")
+    instagram_icon.click()
+    print("Se hizo clic en el ícono de Instagram.")
+    time.sleep(5)  # Esperar que cargue la página
+
+    # Tomar una captura de pantalla
+    bot.save_screenshot("screenshot_instagram.png")
+    print("Captura de pantalla guardada como screenshot_instagram.png.")
+
+except Exception as e:
+    print("Error al intentar acceder al ícono de Instagram o tomar el screenshot:", str(e))
 
 
 
