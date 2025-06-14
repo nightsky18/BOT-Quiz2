@@ -10,7 +10,7 @@ Este bot automatiza la búsqueda de productos en el sitio web de Falabella Colom
 5. Guarda:
    - Un archivo CSV con nombre, precio y enlace de cada producto.
    - Un archivo JSON con la lista de precios.
-6. Accede al ícono de Instagram desde el footer de la página.
+6. Accede al ícono de Instagram desde el footer de la página y toma un pantallazo.
 
 ## Requisitos
 Tener instalado
