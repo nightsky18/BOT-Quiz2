@@ -1,4 +1,4 @@
-# BOT-Quiz2
+# WebScraper Falabella
 Este bot automatiza la búsqueda de productos en el sitio web de Falabella Colombia, utilizando el navegador Google Chrome controlado por Selenium WebDriver
 
 ## Funcionalidades
